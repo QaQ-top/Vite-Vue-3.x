@@ -16,7 +16,8 @@ app.use(router)
 // vuex
 app.use(store)
 
-
+// 环境变量
+console.log(import.meta.env)
 
 
 // 全局配置
