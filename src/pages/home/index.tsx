@@ -29,7 +29,7 @@ const Home = defineComponent({
       <p>{state.value}</p>
       <input type='text' value={state.value}/>
       <button
-        className={Styles.button}
+        class={Styles.button}
         onClick={()=>{
           state.value = 'Home !!!!!!!!!!'
         }}

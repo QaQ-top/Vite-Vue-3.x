@@ -13,12 +13,14 @@ const app = createApp(App)
 // router
 app.use(router)
 
+
 // vuex
 app.use(store)
 
 // 环境变量
 console.log(import.meta.env)
 
+// app.use(ElementUI)
 
 // 全局配置
 const { config } = app

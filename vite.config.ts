@@ -67,7 +67,7 @@ module.exports = {
      * 强制 optimize 列出的依赖项 (支持深路径)
      */
     include: [
-
+      'view-design'
     ],
     /**
      * 不进行 optimize 的依赖项
@@ -93,7 +93,10 @@ module.exports = {
      */
     auto: true
   },
-
+  /**
+   *> 插件
+   */
+  plugins:[],
 
   /**
    *> Vue 编译器选项
@@ -194,7 +197,7 @@ module.exports = {
   // 端口号
   port: 3000,
   // 立即打开浏览器
-  open: true,
+  open: false,
   /**
    *> 配置 HTTPS
    */

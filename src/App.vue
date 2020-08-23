@@ -40,6 +40,8 @@
     </router-link>
 
     <router-view class="view"/>
+
+    <Tabs/>
   </div>
 </template>
 
@@ -53,7 +55,9 @@ import { SetupContext, Ref } from 'vue'
 
 import logo from './assets/logo.png'
 
-import Home from './pages/home'
+// import Home from './pages/home'
+
+import Tabs from './components/tabs.vue'
 
 export default {
   name: 'App',
@@ -161,7 +165,7 @@ export default {
   components: {
     Reactive,
     Inject,
-    Home
+    Tabs
   }
 }
 </script>
