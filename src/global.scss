@@ -1,8 +1,11 @@
 // pc端重置样式
-html, body, div, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, ul, li, fieldset, form, label, input, legend, table, caption, tbody, tfoot, thead, tr, th, td, textarea, article, aside, audio, canvas, figure, footer, header, mark, menu, nav, section, time, video { margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+}
+html, body, div, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, fieldset, form, label, input, legend, table, caption, tbody, tfoot, thead, tr, th, td, textarea, article, aside, audio, canvas, figure, footer, header, mark, menu, nav, section, time, video { margin: 0; padding: 0; }
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal;}
 article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote { display: block; }
-ul, ol { list-style: none; }
+ul { list-style: none; }
 img { border: 0 none; vertical-align: top; }
 blockquote, q { quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after { content: none; }
@@ -20,16 +23,29 @@ a:hover { text-decoration: underline; }
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #ffffff;
+  background-color: #35495E;
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 1500541 */
+  src: url('//at.alicdn.com/t/font_1500541_9knfmwc36t6.eot');
+  src: url('//at.alicdn.com/t/font_1500541_9knfmwc36t6.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1500541_9knfmwc36t6.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1500541_9knfmwc36t6.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1500541_9knfmwc36t6.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1500541_9knfmwc36t6.svg#iconfont') format('svg');
+}
+i {
+  font-family: 'iconfont';
+  cursor: pointer;
 }
 
 
 // global Button
 $ButtonWidth: auto;
 $ButtonHeight: 30px;
-$ButtonColor: rgb(0, 180, 90);
+$ButtonColor: #3FB47F;
 %Interactive {
   border: 1px solid $ButtonColor;
   color: $ButtonColor;
@@ -53,8 +69,12 @@ button{
 }
 input {
   @extend button;
+  background-color: #3FB47F;
+  color: #fff;
+  padding: 3px;
   &:hover {
     @extend %Interactive;
+    color: #fff;
   }
   &:active {
     @extend %Interactive;
@@ -62,8 +82,12 @@ input {
   }
   &:disabled{
     border: none;
+    cursor: not-allowed;
+    background-color: transparent;
+    color: #fff;
+
     &:hover {
-      color: #333
+      color:  #fff
     }
     &:active {
       box-shadow: none;
@@ -81,9 +105,9 @@ code {
     right: 4px;
   }
   border-radius: 4px;
-  border: 1px solid rgb(212, 212, 212);
+  border: 1px solid #2E8B57;
   font-weight: bold;
-  background-color: rgb(235, 235, 235);
+  background-color: #3FB47F;
 }
 
 // 

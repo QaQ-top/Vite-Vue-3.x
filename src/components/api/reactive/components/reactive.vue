@@ -6,17 +6,16 @@
     <div>
        子组件：<input type="text" v-focus v-model="introduction.value">
     </div>
-    <pre-code :code='introduction' />
-    <!-- <pre>源对象<br />{{introduction}}</pre-code> -->
     <br />
   </div>
+  <pre-code :code='introduction' />
 </template>
 
 <script lang="ts">
 import { ref } from 'vue'
 
 export default {
-  name: 'Reactive',
+  name: 'Reactivechildern',
   setup(props,context) {
 
     // attr 表示 父作用域在组件上 定义的 属性

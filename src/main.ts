@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './global.scss'
-import Pre from './components/pre.vue'
+import Pre from './components/api/pre.vue'
 import router from './route'
 import store from './store'
 
