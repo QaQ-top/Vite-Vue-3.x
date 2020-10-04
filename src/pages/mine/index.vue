@@ -1,7 +1,9 @@
 <template>
   <div ref="mine">
     {{state.value}}
-    <pre-code :code='getUserInfo' />
+    <pre-code :code='getUserInfo'/>
+    <dsa-fsa></dsa-fsa>
+    <fsa-dsa></fsa-dsa>
   </div>
 </template>
 

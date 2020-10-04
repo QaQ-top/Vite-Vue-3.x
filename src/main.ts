@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import App from './App.vue'
 import './global.scss'
 import Pre from './components/api/pre.vue'
@@ -28,6 +28,10 @@ const { config } = app
 // 开启 vue-devtools 开发工具
 // config.devtools = true 
 
+config.isCustomElement = tag => {
+  console.log(tag)
+  return ["dsa","fsa"].includes(tag.split("-")[0])
+}
 
 //>Vue.prototype 已经被 config.globalProperties 代替 实现全局配置
 // Vue 2.xx
@@ -43,9 +47,7 @@ config.globalProperties.$http = () => new Promise(function(resolve, reject) {
 
 //>自定义选项定义合并策略
 
-app.mixin({
-  msg:'Vue 3.xx'
-})
+
 /**
  * optionMergeStrategies 可以Vue实例 mixin 混入的某个 属性进行拦截
  *@param parent {} 
@@ -54,14 +56,22 @@ app.mixin({
  *@returns any 返回任意值 作为属性最终值
  * 读取时执行函数 缓存返回的值 下次读取直接拿缓存值
  */
-config.optionMergeStrategies.msg = (parent, child, vm) => {
-  console.log(parent, child, vm)
-  return `Hollo ${child}`
+config.optionMergeStrategies = {
+  msg: (parent, child, vm) => {
+    console.log(parent, child, vm)
+    return `Hollo ${child}`
+  },
+  sex: (parent, child:any, vm) => (child > 18) ? 18 : child,
 }
+app.mixin({
+  msg:'Vue 3.xx',
+  sex: 36
+})
 // msg 可以在 app 组件 setup()返回的函数里面调用 this.$options.msg && app的template模板内无法访问到 msg
 
 //>性能/时间轴面板中编译、呈现和修补性能跟踪
 config.performance = true
+
 
 
 

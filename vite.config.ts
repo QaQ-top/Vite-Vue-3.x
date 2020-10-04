@@ -5,7 +5,7 @@ module.exports = {
   /**
    *> 环境模式
    */
-  mode: 'develop',
+  mode: 'development',
 
 
   /**
@@ -29,7 +29,7 @@ module.exports = {
   /**
    *> JSX
    */
-  jsx: 'vue',
+  jsx: "vue",  /* --jsx-factory=h --jsx-fragment=Fragment 可以在运行时添加配置 */
 
 
   /**
@@ -50,7 +50,7 @@ module.exports = {
   /**
    *> 定义全局变量替换
    * 在开发模式，挂载在' window '上
-   * 生成模式，直接替换
+   * 生产模式，直接替换
    */
   define: {
     "target": {
@@ -113,6 +113,10 @@ module.exports = {
      * 默认: false
      */ 
     cacheHandlers: true,
+    isCustomElement: (tag) => {
+      // 消除 对 CustomElement(Web Components API) 标签的警告
+      return ["dsa","fsa"].includes(tag.split("-")[0]);
+    }
   },
 
 

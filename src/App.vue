@@ -63,9 +63,6 @@ export default {
   name: "App",
   data() {
     return {
-      setCount() {
-        console.log("add");
-      },
     };
   },
   //>———————————————————————————————————————————  SetUp  ————————————————————————————————————————————————————
@@ -77,7 +74,7 @@ export default {
    *@param context {SetupContext<Record<string, any>>} 提供 attrs emit slots 核心方法
    *@returns { [key:string]:any } 返回一个对象 供 template 使用数据 方法
    */
-  setup(props, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     /**
      *  >ref
      * 模板使用变量
@@ -85,7 +82,6 @@ export default {
     const count: Ref<number> = ref(0);
     // 获取模板 真实节点
     const btn = ref(null);
-
     /**
      * >watchEffect
      * 默认 执行一次
@@ -148,6 +144,10 @@ export default {
     // Inject,
     Tabs,
   },
+  mounted() {
+    console.log("mixinmixinmixin", this.$options?.msg,this.$options?.sex, this.$options)
+
+  }
 };
 </script>
 
@@ -238,8 +238,8 @@ $width: auto;
     margin: 20px 0;
     font-size: 12px;
     & + div {
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       border: #35495e 10px solid;
       overflow: hidden;

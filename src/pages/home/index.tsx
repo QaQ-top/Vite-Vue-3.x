@@ -1,4 +1,4 @@
-import { reactive, defineComponent } from 'vue'
+import { reactive, defineComponent, withDirectives, resolveDirective, h, Fragment, VNode} from 'vue'
 
 // 使用模块化样式 无效 目前我还未解决
 import Styles from './style.scss'
@@ -6,15 +6,18 @@ import Styles from './style.scss'
 
 import { useRoute } from 'vue-router'
 
-
 // Vue 3 JSX 的 API 设计
 /**
  * defineComponent Vue TSX or JSX 的核心方法
- * 
- * npm install @hcysunyang/babel-plugin-vue-next-jsx -D
- * yarn add @hcysunyang/babel-plugin-vue-next-jsx -D
- *!如果 不安装 vue-next-jsx 是无法在 TSX、JSX 使用 vue 指令的
- *!https://github.com/HcySunYang/vue-next-jsx
+ * vite.config.ts 配置 :
+ * module.exports = {
+ *    jsx: {
+ *      factory: "h",
+ *      fragment: "Fragment",
+ *    }
+ * }
+ * 或者运行 vite 时添加配置 --jsx-factory=h --jsx-fragment=Fragment
+ *! 一定要 import { h, Fragment} from 'vue'; 引入这两个对象;
  */
 // 第一种写法
 const Home = defineComponent({
@@ -24,10 +27,18 @@ const Home = defineComponent({
       value: 'Home'
     })
 
+    //>获取全局自定义指令
+    const vFocus = resolveDirective("focus"); // vue 自带的指令 需要引入 import { vFor } from 'vue'
+
     console.log(useRoute().query)
-    return () => <>
+    return () => <div>
       <p>{state.value}</p>
-      <input type='text' value={state.value}/>
+      {
+        //>在 VNode 上添加一个自定义指令
+        withDirectives(<input  type='text' value={state.value}/> as VNode,[
+          [vFocus as any]
+        ])
+      }
       <button
         class={Styles.button}
         onClick={()=>{
@@ -36,7 +47,7 @@ const Home = defineComponent({
       >
         点击
       </button>
-    </>
+    </div>
   },
 })
 
