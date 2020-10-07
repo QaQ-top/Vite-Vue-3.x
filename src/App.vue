@@ -35,23 +35,77 @@
   </div>
   
   <Tabs />
-
+f=
   <!-- 如果传递的是 introduction.value 不会发生响应 因为 子组件接收到的是 值 -->
   I am ref {{ count }}
   <button @click="setCount" ref="btn">setCount</button>
   <router-link to="/home">home</router-link>
   <router-link to="/mine">mine</router-link>
+    <async-comp />
 
-  <router-view class="view" />
+  <!-- <router-view class="view" /> -->
 
 </template>
 
 <script lang='ts'>
 // import Inject from "./components/api/inject.vue";
 // 方法
-import { ref, reactive, computed, watch, watchEffect } from "vue";
+import { ref, reactive, computed, watch, watchEffect, defineAsyncComponent, nextTick} from "vue";
 // 接口
 import { SetupContext, Ref } from "vue";
+
+
+
+const AsyncComp = defineAsyncComponent({
+  // 要引入的组件
+  loader: async () => {
+    // 设置延迟
+    await new Promise((resolve, reject) => {
+      setTimeout(()=>{ resolve() }, 2000)
+    }).catch(e=>console.log(e));
+    return await import('./pages/home');
+  },
+  // loader加载中，显示的组件
+  loadingComponent: {
+    render() {
+      return "加载中。。。"
+    }
+  },
+  // loader加载失败，显示的组件
+  errorComponent: {
+    render() {
+      return "加载失败！"
+    }
+  },
+  // 控制 加载过程中(loadingComponent) 组件 显示的时机, 默认延迟 200ms 显示;
+  delay: 200,
+
+  // 如果超时，将显示错误组件。
+  // 提供和超过。默认值：无限大。
+  timeout: 5000,
+  
+  // 定义组件是否可暂停。默认值：true。
+  suspensible: false,
+  /**
+   * @param {*} 错误信息对象
+   * @param {*} retry 一个函数，用于指示当加载器承诺被拒绝时，异步组件是否应该重试。
+   * @param {*} 失败结束
+   * @param {*} 尝试次数
+   */
+  onError(error, retry, fail, attempts) {
+    if (error.message.match(/fetch/) && attempts <= 3) {
+      // 引入错误时重试，最多尝试3次。
+      retry();
+    } else {
+      // 注意，retry/fail 就像 Promise 的 resolve / reject。
+      // 其中一个 必须被调用才能继续错误处理。
+      fail();
+    }
+  },
+})
+
+console.log(AsyncComp)
+
 
 import logo from "./assets/logo.png";
 
@@ -113,7 +167,6 @@ export default {
      * renderTracked    -> onRenderTracked
      * renderTriggered  -> onRenderTriggered
      */
-
     //>return一个对象 供template使用
     return {
       logo,
@@ -143,6 +196,7 @@ export default {
   components: {
     // Inject,
     Tabs,
+    AsyncComp,
   },
   mounted() {
     console.log("mixinmixinmixin", this.$options?.msg,this.$options?.sex, this.$options)
