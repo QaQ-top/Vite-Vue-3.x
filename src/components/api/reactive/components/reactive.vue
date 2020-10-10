@@ -23,8 +23,9 @@ import { ref, SetupContext} from 'vue'
 
 export default {
   name: 'Reactivechildern',
-  setup(props: any,context: SetupContext) {
 
+  setup(props: any,context: SetupContext) {
+    console.log(props)
     // attr 表示 父作用域在组件上 定义的 属性
     const { introduction } = context.attrs
     
@@ -32,6 +33,10 @@ export default {
       introduction
     }
   },
+  created () {
+    console.log(this.$data)
+    console.log(this.$props)
+  }
   
 }
 </script>

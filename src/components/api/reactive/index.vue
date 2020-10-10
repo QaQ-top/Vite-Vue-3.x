@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>reactive</p>
-    <span>数据响应 {{rely}}</span>
+    <span>数据响应 {{ rely }}</span>
   </div>
   <div>
     <div>
@@ -16,7 +16,9 @@
     <span>Reactive</span>
     <ol type="1">
       <li>创建响应式对象 子组件可以更改 父亲组件的 reactive</li>
-      <li>不使用 reactive 创建的对象 对于 子组件来说 是单向的 子组件无法更改</li>
+      <li>
+        不使用 reactive 创建的对象 对于 子组件来说 是单向的 子组件无法更改
+      </li>
     </ol>
   </div>
 </template>
@@ -27,6 +29,14 @@ import childern from "./components/reactive.vue";
 
 export default {
   name: "Reactive",
+  data() {
+    return {
+      name: "CK",
+    };
+  },
+  emits: ["enter"],
+  props: ["names"],
+
   setup() {
     /**
      * >reactive
@@ -52,6 +62,11 @@ export default {
   components: {
     childern,
   },
+  created () {
+    console.log(this.$data)
+    console.log(this.$props)
+    // console.log(this.$data)
+  }
 };
 </script>
 

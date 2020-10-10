@@ -5,5 +5,5 @@ import Inject from './api/inject/index.vue'
 
 export default {
   Reactive,
-  Inject
+  // Inject
 };

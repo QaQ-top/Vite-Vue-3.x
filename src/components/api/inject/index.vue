@@ -24,6 +24,22 @@
 import childern from "./components/inject.vue";
 export default {
   name: "Inject",
+  emits: {
+    enter: (payload) => {
+      if (payload.email && payload.password) { // 验证参数
+        return true // 同意触发 enter 事件, 触发父组件函数
+      } else {
+        console.warn(`Invalid enter event payload!`)
+        return false // 拒绝触发 enter 事件, 不会 触发父组件函数
+      }
+    }
+  },
+  created() {
+    this.$emit('enter', {
+      email: 1,
+      password: 2
+    })
+  },
   setup() {
     return {};
   },

@@ -192,7 +192,9 @@ export default {
       value: "provide / inject",
     },
   },
+  directives:{
 
+  },
   components: {
     // Inject,
     Tabs,
@@ -201,7 +203,8 @@ export default {
   mounted() {
     console.log("mixinmixinmixin", this.$options?.msg,this.$options?.sex, this.$options)
 
-  }
+  },
+  
 };
 </script>
 

@@ -4,7 +4,7 @@
       <li v-for="(item, index) in pron" :key="index" :data-index="index" :class="{activate:selection===index}">{{item}}</li>
     </ul>
     <div class="component">
-      <component :is="name"/>
+      <component :is="name" @enter="enter" :names="['CK','YMY']"/>
     </div>
   </div>
 </template>
@@ -17,6 +17,11 @@ import Components from './index';
 
 export default {
   name: "Tabs",
+  methods: {
+    enter:(emits: any) => {
+      console.log(emits)
+    }
+  },
   setup() {
     // 当前选择
     const selection = ref(0);
