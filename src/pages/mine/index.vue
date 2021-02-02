@@ -27,7 +27,7 @@ import { useLink, useRoute, useRouter, parseQuery, stringifyQuery } from 'vue-ro
 import { useStore, mapGetters, mapState, mapActions } from 'vuex'
 
 
-import PreCode from '../../components/api/pre.vue'
+import PreCode from '@components/api/pre.vue'
 
  const Mine =  defineComponent({
   name: 'Mine',

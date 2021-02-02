@@ -35,7 +35,7 @@
   </div>
   
   <Tabs />
-f=
+
   <!-- 如果传递的是 introduction.value 不会发生响应 因为 子组件接收到的是 值 -->
   I am ref {{ count }}
   <button @click="setCount" ref="btn">setCount</button>
@@ -55,15 +55,14 @@ import { ref, reactive, computed, watch, watchEffect, defineAsyncComponent, next
 import { SetupContext, Ref } from "vue";
 
 
-
 const AsyncComp = defineAsyncComponent({
   // 要引入的组件
   loader: async () => {
     // 设置延迟
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       setTimeout(()=>{ resolve() }, 2000)
     }).catch(e=>console.log(e));
-    return await import('./pages/home');
+    return await import('@pages/home');
   },
   // loader加载中，显示的组件
   loadingComponent: {
@@ -107,11 +106,11 @@ const AsyncComp = defineAsyncComponent({
 console.log(AsyncComp)
 
 
-import logo from "./assets/logo.png";
+import logo from "@assets/logo.png";
 
 // import Home from './pages/home'
 
-import Tabs from "./components/tabs.vue";
+import Tabs from "@components/tabs.vue";
 
 export default {
   name: "App",
@@ -200,7 +199,7 @@ export default {
     Tabs,
     AsyncComp,
   },
-  mounted() {
+  mounted(this:any) {
     console.log("mixinmixinmixin", this.$options?.msg,this.$options?.sex, this.$options)
 
   },
@@ -243,6 +242,7 @@ $width: auto;
 
 .vue {
   width: 100%;
+  overflow: hidden;
   height: 500px;
   padding: 50px;
   background-image: linear-gradient(to right bottom, #2e8b57, #41b883);

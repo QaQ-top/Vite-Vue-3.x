@@ -1,219 +1,87 @@
 // 配置信息接口
-import { UserConfig } from 'node_modules/vite/dist/node/config'
-
-module.exports = {
-  /**
-   *> 环境模式
-   */
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import autoprefixer from 'autoprefixer';
+export default defineConfig({
   mode: 'development',
-
-
-  /**
-   *> 根目录
-   * 当前文件的 路径
-   * 也就是根目录
-   */
-  root: process.cwd(), // d:\Environment\progress\vue\vite
-
-
-  /**
-   *> 定义引入的依赖包 别名
-   */
+  root: process.cwd(),
+  base: '/',
   alias: {
-    // vue不需要定义 react需要
-    'react': '@pika/react',
-    'react-dom': '@pika/react-dom',
+    "@src": resolve(__dirname, "src"),
+    "@assets": resolve(__dirname, "src/assets"),
+    "@models": resolve(__dirname, "src/models"),
+    "@pages": resolve(__dirname, "src/pages"),
+    "@route": resolve(__dirname, "src/route"),
+    "@themes": resolve(__dirname, "src/themes"),
+    "@utils": resolve(__dirname, "src/utils"),
+    "@components": resolve(__dirname, "src/components"),
   },
-
-
-  /**
-   *> JSX
-   */
-  jsx: "vue",  /* --jsx-factory=h --jsx-fragment=Fragment 可以在运行时添加配置 */
-
-
-  /**
-   *> 自定义文件转换
-   */
-  transforms: [
-    {
-      test: (ctx)=> {
-        return false
-      },
-      transform: (ctx) => {
-        return ''
-      },
+  define: {
+    __GLOBAL__target: "全局变量"
+  },
+  plugins:[
+    vue(),
+    vueJsx(),
+  ],
+  esbuild: {
+    target: "es2020",
+    jsxInject: "h",
+    jsxFragment: "Fragment",
+  },
+  css: {
+    modules: {
+      scopeBehaviour: 'local',
+      generateScopedName: "[name]-[local]-[hash:base64:5]",
+      localsConvention: 'camelCase',
     },
+    postcss: {
+      plugins: [
+        autoprefixer({
+          overrideBrowserslist:["last 5 versions", "> 0.5%"]
+        })
+      ]
+    }
+  },
+  json: {
+    namedExports: true,
+    stringify: false,
+  },
+  assetsInclude: [
+    // images
+    'png','jpe?g','gif','svg','ico','webp','avif',
+  
+    // media
+    'mp4','webm','ogg','mp3','wav','flac','aac',
+  
+    // fonts
+    'woff2?','eot','ttf','otf',
+  
+    // other
+    'wasm'
   ],
 
-
-  /**
-   *> 定义全局变量替换
-   * 在开发模式，挂载在' window '上
-   * 生产模式，直接替换
-   */
-  define: {
-    "target": {
-      value: 'window 全局变量'
-    },
-  },
-
-
-  /**
-   *> 配置 dep optimize
-   */
-  optimizeDeps: {
-    /**
-     * 强制 optimize 列出的依赖项 (支持深路径)
-     */
-    include: [
-      'view-design'
-    ],
-    /**
-     * 不进行 optimize 的依赖项
-     */
-    exclude: [
-
-    ],
-    /**
-     * 应作为源代码处理的链接依赖项列表
-     */
-    link: [
-    ],
-
-    /**
-     * 导入节点内置但不实际导入的依赖项列表
-     * 在浏览器中使用
-     */
-    allowNodeBuiltins: [
-    ],
-
-    /**
-     * 自动运行' vite optimize'服务器
-     */
-    auto: true
-  },
-  /**
-   *> 插件
-   */
-  plugins:[],
-
-  /**
-   *> Vue 编译器选项
-   */
-  vueCompilerOptions: {
-  // 解析器选项
-    /**
-     * 变量模板
-     */
-    delimiters: ['{{','}}'],
-    /**
-     * 缓存v-on处理程序，以避免在每次渲染时创建新的内联函数，
-     * 也避免了需要动态修补处理程序包装它。
-     * 默认: false
-     */ 
-    cacheHandlers: true,
-    isCustomElement: (tag) => {
-      // 消除 对 CustomElement(Web Components API) 标签的警告
-      return ["dsa","fsa"].includes(tag.split("-")[0]);
-    }
-  },
-
-
-  /**
-   *> CSS 预处理器
-   */
-  cssPreprocessOptions: {
-    'sass': {
-      modifyVars: {
-        'preprocess-custom-color': 'green'
+  server: {
+    base: '/',
+    host: '127.0.0.1',
+    port: 6412,
+    strictPort: true,
+    middlewareMode:  false,
+    open: false,
+    proxy: {
+      "/music": {
+        target: 'http://39.108.182.125:3000',
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/music/, ''),
       }
-    }
-  },
-
-
-  /**
-   *> CSS 模块选中
-   */
-  cssModuleOptions: {
-    // 作用范围
-    scopeBehaviour: 'global',
-    // 全局模块路径
-    globalModulePaths:[],
-    // 生成命名空间
-    generateScopedName: (name: string, filename: string, css: string) => {
-      return ''
     },
-    // 哈希前缀
-    hashPrefix: '',
-    /**
-     * 命名约束
-     * camelCase：驼峰
-     * camelCaseOnly：仅在驼峰命名情况下
-     * dashes： header-start
-     * dashesOnly 仅在 - 命名情况下
-     */
-    localsConvention: 'camelCase'
-  },
-
-
-  /**
-   *> Vue 自定义模块
-   */
-  vueCustomBlockTransforms: {
-    i18n: ({ code }) => {
-      return 'transformed code'
+    cors: {
+      "origin": '*',
+      "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+      "preflightContinue": false,
+      "optionsSuccessStatus": 204
     }
-  },
-
-
-  /**
-   *> 使用 esbuild
-   * 默认 true
-   */
-  enableEsbuild: true,
-
-
-  /**
-   *> 从.env文件解析的环境变量
-   * 只有以 VITE_ 开头的才会在import.meta.env上暴露
-   *!需要在启动时指定环境 "dev": "vite --mode development"
-   */
-  env: {
-    fast: 'VITE_FAST'
-  },
-
-
-  /**
-   *> HTTP 代理
-   */
-  proxy: {
-    '/music': {
-      target: 'http://39.108.182.125:3000',
-      changeOrigin: true,
-      rewrite: (path: string) => path.replace(/^\/music/, '')
-    }
-  },
-
-//>——————————————————————— DevServer ——————————————————————————
-  // 主机 ip 地址
-  hostname:'localhost',
-  // 端口号
-  port: 3000,
-  // 立即打开浏览器
-  open: false,
-  /**
-   *> 配置 HTTPS
-   */
-  https: false,
-  httpsOptions:{
-    // 省略....
   }
-//>——————————————————————— END —————————————————————————————————
 
-/**
- *> 生产模式
- * 省略....
- */
-
-} as UserConfig
+});

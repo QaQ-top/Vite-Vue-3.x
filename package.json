@@ -2,17 +2,21 @@
   "name": "vitetest",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --mode development --jsx-factory=h --jsx-fragment=Fragment",
+    "dev": "vite --mode development",
     "build": "vite build --mode production"
   },
   "dependencies": {
-    "vue": "^3.0.0",
+    "vue": "^3.0.5",
     "vue-router": "^4.0.0-beta.13",
     "vuex": "^4.0.0-beta.4"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0",
-    "sass": "^1.26.10",
-    "vite": "^1.0.0-rc.4"
+    "@types/node": "^14.14.22",
+    "@vitejs/plugin-vue": "^1.1.4",
+    "@vitejs/plugin-vue-jsx": "^1.0.2",
+    "@vue/compiler-sfc": "^3.0.5",
+    "autoprefixer": "^10.2.4",
+    "sass": "^1.32.6",
+    "vite": "^2.0.0-beta.61"
   }
 }

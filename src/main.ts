@@ -1,9 +1,9 @@
-import { createApp } from 'vue';
-import App from './App.vue'
-import './global.scss'
-import Pre from './components/api/pre.vue'
-import router from './route'
-import store from './store'
+import { createApp, defineComponent, h } from 'vue';
+import App from '@pages/index.vue';
+import '@themes/global.scss'
+import Pre from '@components/api/pre.vue'
+import router from '@route/index'
+import store from '@models/index'
 
 
 

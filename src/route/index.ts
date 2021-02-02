@@ -9,8 +9,8 @@ import { createRouter, createWebHistory} from 'vue-router'
  * createMemoryHistory()    带缓存 history 路由
  */
 
-import Home from '../pages/home'
-import Mine from '../pages/mine/index.vue'
+import Home from '@pages/home'
+import Mine from '@pages/mine/index.vue'
 
 
 // console.log(Home, Mine)
