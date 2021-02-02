@@ -64,7 +64,7 @@ export default defineConfig({
 
   server: {
     base: '/',
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 6412,
     strictPort: true,
     middlewareMode:  false,

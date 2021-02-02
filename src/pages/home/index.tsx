@@ -109,9 +109,13 @@ const Home = defineComponent({
       {
         //>在 VNode 上添加一个自定义指令
         withDirectives(<input  type='text' value={state.value}/> as VNode,[
-          [vFocus as any]
+          [vFocus as any, true]
         ])
       }
+      {
+        // 正常写法
+      }
+      <input type="text" v-model={state.value} v-focus />
       <button
         class={Styles.button}
         onClick={()=>{

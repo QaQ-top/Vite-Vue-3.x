@@ -99,9 +99,11 @@ app.directive('focus', {
   beforeMount() {
     // 加载前
   },
-  mounted(el) {
+  mounted(el, binding, vnode, prevVNode) {
     // 加载后 el 为 绑定指令的 dom 元素
-    el.focus()
+    if(binding.value) {
+      el.focus()
+    }
     // console.log(el)
   },
   beforeUpdate() {
