@@ -5,6 +5,8 @@ import Pre from '@components/api/pre.vue'
 import router from '@route/index'
 import store from '@models/index'
 
+console.log(Global)
+
 
 
 //>Vue大部分全局api都迁移到了 createApp() 生成的实例中

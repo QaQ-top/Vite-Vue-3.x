@@ -11,3 +11,5 @@ declare module '*.wasm' {
   export default wasm;
 }
 
+declare const Global: string
+

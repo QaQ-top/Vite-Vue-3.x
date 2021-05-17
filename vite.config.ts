@@ -19,7 +19,7 @@ export default defineConfig({
     "@components": resolve(__dirname, "src/components"),
   },
   define: {
-    __GLOBAL__target: "全局变量"
+    Global: "全局变量"
   },
   plugins:[
     vue(),
